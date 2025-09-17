@@ -5,10 +5,10 @@ const morgan = require('morgan');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
-const connectDB = require('./config/database');
+const { connectDB } = require('./config/database');
 require('dotenv').config();
 
-// Connect to MongoDB
+// Connect to Supabase
 connectDB();
 
 const app = express();

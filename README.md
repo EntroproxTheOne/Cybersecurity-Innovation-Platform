@@ -1,6 +1,6 @@
 # THINK AI 3.0 - Cybersecurity Innovation Platform
 
-A next-generation cybersecurity platform built with Node.js, TypeScript, React, and MongoDB. This full-stack application provides AI-powered threat detection, real-time monitoring, and comprehensive security analytics.
+A next-generation cybersecurity platform built with Node.js, TypeScript, React, and Supabase. This full-stack application provides AI-powered threat detection, real-time monitoring, and comprehensive security analytics.
 
 ## 🚀 Features
 
@@ -28,8 +28,8 @@ A next-generation cybersecurity platform built with Node.js, TypeScript, React, 
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
 - **TypeScript** - Type safety and better development experience
-- **MongoDB** - NoSQL database
-- **Mongoose** - ODM for MongoDB
+- **Supabase** - PostgreSQL database with real-time features
+- **Supabase JS** - Database client and authentication
 - **JWT** - Authentication
 - **bcryptjs** - Password hashing
 - **Express Rate Limit** - API rate limiting
@@ -54,7 +54,7 @@ A next-generation cybersecurity platform built with Node.js, TypeScript, React, 
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- MongoDB (v5 or higher)
+- Supabase account (free tier available)
 - npm or yarn
 
 ### Backend Setup
@@ -69,19 +69,27 @@ A next-generation cybersecurity platform built with Node.js, TypeScript, React, 
    cp env.example .env
    ```
    
-   Update the `.env` file with your configuration:
+   Update the `.env` file with your Supabase configuration:
    ```env
    NODE_ENV=development
    PORT=5000
    CLIENT_URL=http://localhost:3000
-   MONGODB_URI=mongodb://localhost:27017/think-ai-3
+   SUPABASE_URL=https://your-project-ref.supabase.co
+   SUPABASE_ANON_KEY=your_supabase_anon_key_here
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
    JWT_SECRET=your_super_secret_jwt_key_here
    EMAIL_USER=your-email@gmail.com
    EMAIL_PASS=your-app-password
    ADMIN_EMAIL=admin@thinkai3.com
    ```
 
-3. **Start the server**
+3. **Set up Supabase Database**
+   - Create a new Supabase project at [supabase.com](https://supabase.com)
+   - Get your project URL and API keys from the project settings
+   - Run the SQL schema from `server/config/supabase-schema.sql` in your Supabase SQL editor
+   - See `SUPABASE_SETUP.md` for detailed instructions
+
+4. **Start the server**
    ```bash
    npm run server
    ```
@@ -130,17 +138,12 @@ npm run dev
    # Edit .env with your configuration
    ```
 
-4. **Start MongoDB** (if running locally)
-   ```bash
-   mongod
-   ```
-
-5. **Run the application**
+4. **Run the application**
    ```bash
    npm run dev
    ```
 
-6. **Access the application**
+5. **Access the application**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:5000
    - API Health Check: http://localhost:5000/api/health
@@ -164,7 +167,7 @@ think-ai-3-cybersecurity/
 ├── server/                # Node.js backend
 │   ├── config/           # Configuration files
 │   ├── middleware/       # Express middleware
-│   ├── models/          # Mongoose models
+│   ├── models/          # Supabase models
 │   ├── routes/          # API routes
 │   └── index.js         # Server entry point
 ├── package.json
@@ -252,7 +255,9 @@ think-ai-3-cybersecurity/
 Ensure all required environment variables are set:
 - `NODE_ENV` - Environment (production/development)
 - `PORT` - Server port
-- `MONGODB_URI` - MongoDB connection string
+- `SUPABASE_URL` - Supabase project URL
+- `SUPABASE_ANON_KEY` - Supabase anonymous key
+- `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key
 - `JWT_SECRET` - JWT signing secret
 - `EMAIL_USER` - Email service username
 - `EMAIL_PASS` - Email service password
@@ -300,7 +305,7 @@ For support, email support@thinkai3.com or create an issue in the repository.
 
 - React team for the amazing framework
 - Node.js community for excellent packages
-- MongoDB for the flexible database
+- Supabase for the powerful database platform
 - All open-source contributors
 
 ---

@@ -1,230 +1,96 @@
-const mongoose = require('mongoose');
+const { getSupabase } = require('../config/database');
 
-const threatSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 3,
-    maxlength: 200
-  },
-  description: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 10,
-    maxlength: 2000
-  },
-  severity: {
-    type: String,
-    enum: ['low', 'medium', 'high', 'critical'],
-    required: true,
-    default: 'medium'
-  },
-  type: {
-    type: String,
-    enum: ['malware', 'phishing', 'ddos', 'data_breach', 'insider_threat', 'vulnerability', 'other'],
-    required: true
-  },
-  status: {
-    type: String,
-    enum: ['active', 'investigating', 'resolved', 'false_positive', 'closed'],
-    default: 'active'
-  },
-  source: {
-    type: String,
-    required: true,
-    trim: true,
-    maxlength: 100
-  },
-  ipAddress: {
-    type: String,
-    trim: true,
-    match: [/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, 'Invalid IP address format']
-  },
-  location: {
-    type: String,
-    trim: true,
-    maxlength: 100
-  },
-  detectedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  resolvedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  detectedAt: {
-    type: Date,
-    default: Date.now
-  },
-  resolvedAt: {
-    type: Date
-  },
-  resolution: {
-    type: String,
-    trim: true,
-    maxlength: 1000
-  },
-  notes: {
-    type: String,
-    trim: true,
-    maxlength: 2000
-  },
-  additionalData: {
-    type: mongoose.Schema.Types.Mixed,
-    default: {}
-  },
-  tags: [{
-    type: String,
-    trim: true,
-    maxlength: 50
-  }],
-  riskScore: {
-    type: Number,
-    min: 0,
-    max: 100,
-    default: 50
-  },
-  impact: {
-    type: String,
-    enum: ['low', 'medium', 'high', 'critical'],
-    default: 'medium'
-  },
-  likelihood: {
-    type: String,
-    enum: ['low', 'medium', 'high', 'critical'],
-    default: 'medium'
-  },
-  affectedSystems: [{
-    type: String,
-    trim: true,
-    maxlength: 100
-  }],
-  indicators: [{
-    type: {
-      type: String,
-      enum: ['ip', 'domain', 'url', 'file_hash', 'email', 'other']
-    },
-    value: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    description: {
-      type: String,
-      trim: true,
-      maxlength: 200
-    }
-  }],
-  timeline: [{
-    timestamp: {
-      type: Date,
-      default: Date.now
-    },
-    action: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    performedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    details: {
-      type: String,
-      trim: true,
-      maxlength: 500
-    }
-  }],
-  attachments: [{
-    filename: {
-      type: String,
-      required: true
-    },
-    originalName: {
-      type: String,
-      required: true
-    },
-    mimeType: {
-      type: String,
-      required: true
-    },
-    size: {
-      type: Number,
-      required: true
-    },
-    uploadedAt: {
-      type: Date,
-      default: Date.now
-    },
-    uploadedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  }],
-  relatedThreats: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Threat'
-  }],
-  escalation: {
-    escalated: {
-      type: Boolean,
-      default: false
-    },
-    escalatedAt: {
-      type: Date
-    },
-    escalatedTo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    reason: {
-      type: String,
-      trim: true,
-      maxlength: 500
-    }
+class Threat {
+  constructor(data = {}) {
+    this.id = data.id;
+    this.title = data.title;
+    this.description = data.description;
+    this.severity = data.severity || 'medium';
+    this.type = data.type;
+    this.status = data.status || 'active';
+    this.source = data.source;
+    this.ipAddress = data.ip_address;
+    this.location = data.location;
+    this.detectedBy = data.detected_by;
+    this.resolvedBy = data.resolved_by;
+    this.detectedAt = data.detected_at || new Date().toISOString();
+    this.resolvedAt = data.resolved_at;
+    this.resolution = data.resolution;
+    this.notes = data.notes;
+    this.additionalData = data.additional_data || {};
+    this.tags = data.tags || [];
+    this.riskScore = data.risk_score || 50;
+    this.impact = data.impact || 'medium';
+    this.likelihood = data.likelihood || 'medium';
+    this.affectedSystems = data.affected_systems || [];
+    this.indicators = data.indicators || [];
+    this.timeline = data.timeline || [];
+    this.attachments = data.attachments || [];
+    this.relatedThreats = data.related_threats || [];
+    this.escalation = data.escalation || {
+      escalated: false,
+      escalatedAt: null,
+      escalatedTo: null,
+      reason: ''
+    };
+    this.createdAt = data.created_at;
+    this.updatedAt = data.updated_at;
   }
-}, {
-  timestamps: true
-});
 
-// Indexes for better query performance
-threatSchema.index({ detectedAt: -1 });
-threatSchema.index({ severity: 1 });
-threatSchema.index({ status: 1 });
-threatSchema.index({ type: 1 });
-threatSchema.index({ detectedBy: 1 });
-threatSchema.index({ source: 1 });
-threatSchema.index({ ipAddress: 1 });
-threatSchema.index({ tags: 1 });
-threatSchema.index({ 'indicators.value': 1 });
-threatSchema.index({ createdAt: -1 });
-
-// Compound indexes
-threatSchema.index({ status: 1, severity: 1 });
-threatSchema.index({ detectedAt: -1, status: 1 });
-threatSchema.index({ type: 1, severity: 1 });
-
-// Virtual for threat age in hours
-threatSchema.virtual('ageInHours').get(function() {
-  return Math.floor((Date.now() - this.detectedAt) / (1000 * 60 * 60));
-});
-
-// Virtual for response time in hours
-threatSchema.virtual('responseTimeInHours').get(function() {
-  if (this.resolvedAt) {
-    return Math.floor((this.resolvedAt - this.detectedAt) / (1000 * 60 * 60));
+  // Convert to database format
+  toDB() {
+    return {
+      id: this.id,
+      title: this.title,
+      description: this.description,
+      severity: this.severity,
+      type: this.type,
+      status: this.status,
+      source: this.source,
+      ip_address: this.ipAddress,
+      location: this.location,
+      detected_by: this.detectedBy,
+      resolved_by: this.resolvedBy,
+      detected_at: this.detectedAt,
+      resolved_at: this.resolvedAt,
+      resolution: this.resolution,
+      notes: this.notes,
+      additional_data: this.additionalData,
+      tags: this.tags,
+      risk_score: this.riskScore,
+      impact: this.impact,
+      likelihood: this.likelihood,
+      affected_systems: this.affectedSystems,
+      indicators: this.indicators,
+      timeline: this.timeline,
+      attachments: this.attachments,
+      related_threats: this.relatedThreats,
+      escalation: this.escalation,
+      created_at: this.createdAt,
+      updated_at: this.updatedAt
+    };
   }
-  return null;
-});
 
-// Pre-save middleware
-threatSchema.pre('save', function(next) {
-  // Auto-calculate risk score based on severity and impact
-  if (this.isModified('severity') || this.isModified('impact')) {
+  // Convert from database format
+  static fromDB(data) {
+    return new Threat(data);
+  }
+
+  // Virtual for threat age in hours
+  get ageInHours() {
+    return Math.floor((Date.now() - new Date(this.detectedAt)) / (1000 * 60 * 60));
+  }
+
+  // Virtual for response time in hours
+  get responseTimeInHours() {
+    if (this.resolvedAt) {
+      return Math.floor((new Date(this.resolvedAt) - new Date(this.detectedAt)) / (1000 * 60 * 60));
+    }
+    return null;
+  }
+
+  // Calculate risk score based on severity and impact
+  calculateRiskScore() {
     const severityScores = { low: 25, medium: 50, high: 75, critical: 100 };
     const impactScores = { low: 25, medium: 50, high: 75, critical: 100 };
     
@@ -233,101 +99,209 @@ threatSchema.pre('save', function(next) {
     );
   }
 
-  // Auto-set resolvedAt when status changes to resolved
-  if (this.isModified('status') && this.status === 'resolved' && !this.resolvedAt) {
-    this.resolvedAt = new Date();
+  // Instance methods
+  async addTimelineEntry(action, performedBy, details = '') {
+    this.timeline.push({
+      action,
+      performedBy,
+      details,
+      timestamp: new Date().toISOString()
+    });
+    return this.save();
   }
 
-  next();
-});
-
-// Instance methods
-threatSchema.methods.addTimelineEntry = function(action, performedBy, details = '') {
-  this.timeline.push({
-    action,
-    performedBy,
-    details,
-    timestamp: new Date()
-  });
-  return this.save();
-};
-
-threatSchema.methods.escalate = function(escalatedTo, reason) {
-  this.escalation = {
-    escalated: true,
-    escalatedAt: new Date(),
-    escalatedTo,
-    reason
-  };
-  return this.save();
-};
-
-threatSchema.methods.addIndicator = function(type, value, description = '') {
-  this.indicators.push({
-    type,
-    value,
-    description
-  });
-  return this.save();
-};
-
-threatSchema.methods.addTag = function(tag) {
-  if (!this.tags.includes(tag)) {
-    this.tags.push(tag);
+  async escalate(escalatedTo, reason) {
+    this.escalation = {
+      escalated: true,
+      escalatedAt: new Date().toISOString(),
+      escalatedTo,
+      reason
+    };
+    return this.save();
   }
-  return this.save();
-};
 
-threatSchema.methods.removeTag = function(tag) {
-  this.tags = this.tags.filter(t => t !== tag);
-  return this.save();
-};
+  async addIndicator(type, value, description = '') {
+    this.indicators.push({
+      type,
+      value,
+      description
+    });
+    return this.save();
+  }
 
-// Static methods
-threatSchema.statics.findBySeverity = function(severity) {
-  return this.find({ severity, status: { $ne: 'closed' } });
-};
-
-threatSchema.statics.findActive = function() {
-  return this.find({ status: 'active' });
-};
-
-threatSchema.statics.findByType = function(type) {
-  return this.find({ type });
-};
-
-threatSchema.statics.findByDateRange = function(startDate, endDate) {
-  return this.find({
-    detectedAt: {
-      $gte: startDate,
-      $lte: endDate
+  async addTag(tag) {
+    if (!this.tags.includes(tag)) {
+      this.tags.push(tag);
     }
-  });
-};
+    return this.save();
+  }
 
-threatSchema.statics.getThreatStats = function() {
-  return this.aggregate([
-    {
-      $group: {
-        _id: null,
-        total: { $sum: 1 },
-        active: { $sum: { $cond: [{ $eq: ['$status', 'active'] }, 1, 0] } },
-        resolved: { $sum: { $cond: [{ $eq: ['$status', 'resolved'] }, 1, 0] } },
-        critical: { $sum: { $cond: [{ $eq: ['$severity', 'critical'] }, 1, 0] } },
-        high: { $sum: { $cond: [{ $eq: ['$severity', 'high'] }, 1, 0] } },
-        medium: { $sum: { $cond: [{ $eq: ['$severity', 'medium'] }, 1, 0] } },
-        low: { $sum: { $cond: [{ $eq: ['$severity', 'low'] }, 1, 0] } }
-      }
+  async removeTag(tag) {
+    this.tags = this.tags.filter(t => t !== tag);
+    return this.save();
+  }
+
+  async save() {
+    const supabase = getSupabase();
+    
+    // Auto-calculate risk score
+    this.calculateRiskScore();
+    
+    // Auto-set resolvedAt when status changes to resolved
+    if (this.status === 'resolved' && !this.resolvedAt) {
+      this.resolvedAt = new Date().toISOString();
     }
-  ]);
-};
+    
+    const data = this.toDB();
+    
+    if (this.id) {
+      // Update existing threat
+      const { data: updatedThreat, error } = await supabase
+        .from('threats')
+        .update(data)
+        .eq('id', this.id)
+        .select()
+        .single();
+      
+      if (error) return { error };
+      return { data: Threat.fromDB(updatedThreat) };
+    } else {
+      // Create new threat
+      const { data: newThreat, error } = await supabase
+        .from('threats')
+        .insert(data)
+        .select()
+        .single();
+      
+      if (error) return { error };
+      return { data: Threat.fromDB(newThreat) };
+    }
+  }
 
-// Text search index
-threatSchema.index({
-  title: 'text',
-  description: 'text',
-  source: 'text',
-  notes: 'text'
-});
+  // Static methods
+  static async findBySeverity(severity) {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from('threats')
+      .select('*')
+      .eq('severity', severity)
+      .neq('status', 'closed')
+      .order('detected_at', { ascending: false });
+    
+    if (error) return { error };
+    return { data: data.map(threat => Threat.fromDB(threat)) };
+  }
 
-module.exports = mongoose.model('Threat', threatSchema);
+  static async findActive() {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from('threats')
+      .select('*')
+      .eq('status', 'active')
+      .order('detected_at', { ascending: false });
+    
+    if (error) return { error };
+    return { data: data.map(threat => Threat.fromDB(threat)) };
+  }
+
+  static async findByType(type) {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from('threats')
+      .select('*')
+      .eq('type', type)
+      .order('detected_at', { ascending: false });
+    
+    if (error) return { error };
+    return { data: data.map(threat => Threat.fromDB(threat)) };
+  }
+
+  static async findByDateRange(startDate, endDate) {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from('threats')
+      .select('*')
+      .gte('detected_at', startDate.toISOString())
+      .lte('detected_at', endDate.toISOString())
+      .order('detected_at', { ascending: false });
+    
+    if (error) return { error };
+    return { data: data.map(threat => Threat.fromDB(threat)) };
+  }
+
+  static async getThreatStats() {
+    const supabase = getSupabase();
+    const { data, error } = await supabase.rpc('get_threat_stats');
+    
+    if (error) return { error };
+    return { data: data || { total: 0, active: 0, resolved: 0, critical: 0, high: 0, medium: 0, low: 0 } };
+  }
+
+  static async findById(id) {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from('threats')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) return { error };
+    return { data: Threat.fromDB(data) };
+  }
+
+  static async findAll(filters = {}) {
+    const supabase = getSupabase();
+    let query = supabase.from('threats').select('*');
+    
+    if (filters.severity) {
+      query = query.eq('severity', filters.severity);
+    }
+    if (filters.status) {
+      query = query.eq('status', filters.status);
+    }
+    if (filters.type) {
+      query = query.eq('type', filters.type);
+    }
+    if (filters.detectedBy) {
+      query = query.eq('detected_by', filters.detectedBy);
+    }
+    if (filters.source) {
+      query = query.ilike('source', `%${filters.source}%`);
+    }
+    if (filters.tags && filters.tags.length > 0) {
+      query = query.overlaps('tags', filters.tags);
+    }
+    if (filters.search) {
+      query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%,source.ilike.%${filters.search}%`);
+    }
+    if (filters.startDate && filters.endDate) {
+      query = query.gte('detected_at', filters.startDate.toISOString()).lte('detected_at', filters.endDate.toISOString());
+    }
+    
+    query = query.order('detected_at', { ascending: false });
+    
+    if (filters.limit) {
+      query = query.limit(filters.limit);
+    }
+    if (filters.offset) {
+      query = query.range(filters.offset, filters.offset + (filters.limit || 10) - 1);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) return { error };
+    return { data: data.map(threat => Threat.fromDB(threat)) };
+  }
+
+  static async delete(id) {
+    const supabase = getSupabase();
+    const { error } = await supabase
+      .from('threats')
+      .delete()
+      .eq('id', id);
+    
+    return { error };
+  }
+}
+
+module.exports = Threat;

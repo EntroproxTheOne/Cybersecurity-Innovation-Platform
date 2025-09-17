@@ -1,32 +1,49 @@
-const mongoose = require('mongoose');
+const { createClient } = require('@supabase/supabase-js');
+
+let supabase = null;
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/think-ai-3');
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    console.log(`🗄️  MongoDB Connected: ${conn.connection.host}`);
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error('Missing Supabase configuration. Please check your environment variables.');
+    }
+
+    supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Test the connection
+    const { data, error } = await supabase
+      .from('users')
+      .select('count')
+      .limit(1);
+
+    if (error && error.code !== 'PGRST116') { // PGRST116 is "relation does not exist" which is expected for new projects
+      throw error;
+    }
+
+    console.log('🗄️  Supabase Connected Successfully');
+    console.log(`🌍 Supabase URL: ${supabaseUrl}`);
     
     // Handle connection events
-    mongoose.connection.on('error', (err) => {
-      console.error('MongoDB connection error:', err);
-    });
-
-    mongoose.connection.on('disconnected', () => {
-      console.log('MongoDB disconnected');
-    });
-
-    // Graceful shutdown
     process.on('SIGINT', async () => {
-      await mongoose.connection.close();
-      console.log('MongoDB connection closed through app termination');
+      console.log('Supabase connection closed through app termination');
       process.exit(0);
     });
 
   } catch (error) {
-    console.error('Database connection error:', error);
+    console.error('Supabase connection error:', error);
     console.log('⚠️  Continuing without database connection for development...');
     // Don't exit in development mode
   }
 };
 
-module.exports = connectDB;
+const getSupabase = () => {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized. Make sure to call connectDB() first.');
+  }
+  return supabase;
+};
+
+module.exports = { connectDB, getSupabase };
