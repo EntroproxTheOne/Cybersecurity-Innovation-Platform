@@ -229,7 +229,7 @@ think-ai-3-cybersecurity/
 - **Interactive Components**: Hover effects and transitions
 - **Accessibility**: WCAG compliant accessibility features
 
-## 📊 Database Schema
+## 📊 Database Schemad
 
 ### User Model
 - Personal information (name, email, company, phone)
