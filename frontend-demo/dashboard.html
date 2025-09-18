@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - THINK AI 3.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>THINK AI 3.0</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="threats.html" class="nav-link">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Threats</span>
+                        <span class="badge">12</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="bug-reports.html" class="nav-link">
+                        <i class="fas fa-bug"></i>
+                        <span>Bug Reports</span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search threats, users...">
+                </div>
+                <div class="notifications">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                    </div>
+                    <span class="user-name">Admin User</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>1,247</h3>
+                        <p>Threats Blocked</p>
+                        <span class="stat-change positive">+12%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>23</h3>
+                        <p>Active Threats</p>
+                        <span class="stat-change negative">+3</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>156</h3>
+                        <p>Active Users</p>
+                        <span class="stat-change positive">+5%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>0.1s</h3>
+                        <p>Avg Response Time</p>
+                        <span class="stat-change positive">-0.02s</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts and Tables -->
+            <div class="dashboard-grid">
+                <!-- Threat Timeline -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Threat Timeline</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-sm">View All</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker critical"></div>
+                                <div class="timeline-content">
+                                    <h4>Critical Threat Detected</h4>
+                                    <p>Malware detected in network segment A</p>
+                                    <span class="timeline-time">2 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker high"></div>
+                                <div class="timeline-content">
+                                    <h4>High Priority Alert</h4>
+                                    <p>Suspicious login attempt from unknown IP</p>
+                                    <span class="timeline-time">15 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker medium"></div>
+                                <div class="timeline-content">
+                                    <h4>Medium Risk Detected</h4>
+                                    <p>Unusual data transfer pattern detected</p>
+                                    <span class="timeline-time">1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Threats -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Threats</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-sm">View All</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="threats-list">
+                            <div class="threat-item">
+                                <div class="threat-severity critical"></div>
+                                <div class="threat-info">
+                                    <h4>Ransomware Attack</h4>
+                                    <p>192.168.1.100 - Network Segment A</p>
+                                </div>
+                                <div class="threat-status">
+                                    <span class="status-badge active">Active</span>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-severity high"></div>
+                                <div class="threat-info">
+                                    <h4>Phishing Attempt</h4>
+                                    <p>suspicious@example.com - Email Gateway</p>
+                                </div>
+                                <div class="threat-status">
+                                    <span class="status-badge investigating">Investigating</span>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-severity medium"></div>
+                                <div class="threat-info">
+                                    <h4>DDoS Attack</h4>
+                                    <p>203.0.113.1 - Web Server</p>
+                                </div>
+                                <div class="threat-status">
+                                    <span class="status-badge resolved">Resolved</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Score -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Security Score</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="security-score">
+                            <div class="score-circle">
+                                <div class="score-value">94</div>
+                                <div class="score-label">Excellent</div>
+                            </div>
+                            <div class="score-details">
+                                <div class="score-item">
+                                    <span>Network Security</span>
+                                    <div class="score-bar">
+                                        <div class="score-fill" style="width: 95%"></div>
+                                    </div>
+                                    <span>95%</span>
+                                </div>
+                                <div class="score-item">
+                                    <span>Endpoint Protection</span>
+                                    <div class="score-bar">
+                                        <div class="score-fill" style="width: 88%"></div>
+                                    </div>
+                                    <span>88%</span>
+                                </div>
+                                <div class="score-item">
+                                    <span>User Awareness</span>
+                                    <div class="score-bar">
+                                        <div class="score-fill" style="width: 92%"></div>
+                                    </div>
+                                    <span>92%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="quick-actions">
+                            <button class="action-btn">
+                                <i class="fas fa-plus"></i>
+                                <span>Add Threat</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Add User</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Export Report</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

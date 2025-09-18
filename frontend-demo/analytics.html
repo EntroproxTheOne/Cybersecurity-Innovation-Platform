@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - THINK AI 3.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>THINK AI 3.0</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="threats.html" class="nav-link">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Threats</span>
+                        <span class="badge">12</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="bug-reports.html" class="nav-link">
+                        <i class="fas fa-bug"></i>
+                        <span>Bug Reports</span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Analytics</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search analytics...">
+                </div>
+                <div class="date-range-picker">
+                    <input type="date" id="startDate" value="2024-01-01">
+                    <span>to</span>
+                    <input type="date" id="endDate" value="2024-12-31">
+                </div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-download"></i>
+                    Export Report
+                </button>
+            </div>
+        </header>
+
+        <!-- Analytics Content -->
+        <div class="analytics-content">
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>1,247</h3>
+                        <p>Threats Blocked</p>
+                        <span class="metric-change positive">+12% vs last month</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>0.1s</h3>
+                        <p>Avg Response Time</p>
+                        <span class="metric-change positive">-0.02s improvement</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>99.9%</h3>
+                        <p>Detection Accuracy</p>
+                        <span class="metric-change positive">+0.1% improvement</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>156</h3>
+                        <p>Active Users</p>
+                        <span class="metric-change positive">+5% growth</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- Threat Timeline Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Threat Detection Timeline</h3>
+                        <div class="chart-controls">
+                            <select class="chart-select">
+                                <option value="7d">Last 7 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                                <option value="90d">Last 90 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="threatTimelineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Threat Types Distribution -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Threat Types Distribution</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="threatTypesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Security Score Trend -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Security Score Trend</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="securityScoreChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Geographic Distribution -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Threats by Geographic Region</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="geographicChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Analytics -->
+            <div class="analytics-grid">
+                <!-- Top Threats -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Top Threats This Week</h3>
+                        <button class="btn btn-sm">View All</button>
+                    </div>
+                    <div class="card-content">
+                        <div class="threat-list">
+                            <div class="threat-item">
+                                <div class="threat-rank">1</div>
+                                <div class="threat-info">
+                                    <h4>Ransomware Attack</h4>
+                                    <p>Network Segment A</p>
+                                </div>
+                                <div class="threat-count">47</div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-rank">2</div>
+                                <div class="threat-info">
+                                    <h4>Phishing Campaign</h4>
+                                    <p>Email Gateway</p>
+                                </div>
+                                <div class="threat-count">32</div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-rank">3</div>
+                                <div class="threat-info">
+                                    <h4>DDoS Attack</h4>
+                                    <p>Web Server</p>
+                                </div>
+                                <div class="threat-count">28</div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-rank">4</div>
+                                <div class="threat-info">
+                                    <h4>Data Exfiltration</h4>
+                                    <p>Database Server</p>
+                                </div>
+                                <div class="threat-count">15</div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-rank">5</div>
+                                <div class="threat-info">
+                                    <h4>Insider Threat</h4>
+                                    <p>User Account</p>
+                                </div>
+                                <div class="threat-count">12</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Performance Metrics</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="performance-metrics">
+                            <div class="performance-item">
+                                <div class="performance-label">System Uptime</div>
+                                <div class="performance-value">99.98%</div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 99.98%"></div>
+                                </div>
+                            </div>
+                            <div class="performance-item">
+                                <div class="performance-label">CPU Usage</div>
+                                <div class="performance-value">23%</div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 23%"></div>
+                                </div>
+                            </div>
+                            <div class="performance-item">
+                                <div class="performance-label">Memory Usage</div>
+                                <div class="performance-value">67%</div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 67%"></div>
+                                </div>
+                            </div>
+                            <div class="performance-item">
+                                <div class="performance-label">Network Latency</div>
+                                <div class="performance-value">12ms</div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 12%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Activity -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>User Activity</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="activity-stats">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-number">1,234</div>
+                                    <div class="activity-label">Logins Today</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-number">5,678</div>
+                                    <div class="activity-label">Page Views</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-number">2.5h</div>
+                                    <div class="activity-label">Avg Session Time</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <div class="activity-number">68%</div>
+                                    <div class="activity-label">Mobile Users</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Trends -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Security Trends</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="trend-list">
+                            <div class="trend-item positive">
+                                <div class="trend-icon">
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                                <div class="trend-info">
+                                    <div class="trend-title">Threat Detection Rate</div>
+                                    <div class="trend-value">+15% this month</div>
+                                </div>
+                            </div>
+                            <div class="trend-item positive">
+                                <div class="trend-icon">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="trend-info">
+                                    <div class="trend-title">False Positive Rate</div>
+                                    <div class="trend-value">-8% this month</div>
+                                </div>
+                            </div>
+                            <div class="trend-item positive">
+                                <div class="trend-icon">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="trend-info">
+                                    <div class="trend-title">Response Time</div>
+                                    <div class="trend-value">-0.05s this month</div>
+                                </div>
+                            </div>
+                            <div class="trend-item negative">
+                                <div class="trend-icon">
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                                <div class="trend-info">
+                                    <div class="trend-title">Critical Threats</div>
+                                    <div class="trend-value">+3 this week</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            // Threat Timeline Chart
+            const threatTimelineCtx = document.getElementById('threatTimelineChart').getContext('2d');
+            new Chart(threatTimelineCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Threats Detected',
+                        data: [12, 19, 8, 15, 22, 18, 25],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Threats Blocked',
+                        data: [10, 17, 6, 13, 20, 16, 23],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Threat Types Chart
+            const threatTypesCtx = document.getElementById('threatTypesChart').getContext('2d');
+            new Chart(threatTypesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Malware', 'Phishing', 'DDoS', 'Data Breach', 'Insider Threat', 'Other'],
+                    datasets: [{
+                        data: [35, 25, 15, 12, 8, 5],
+                        backgroundColor: [
+                            '#ef4444',
+                            '#f59e0b',
+                            '#3b82f6',
+                            '#8b5cf6',
+                            '#10b981',
+                            '#6b7280'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+
+            // Security Score Chart
+            const securityScoreCtx = document.getElementById('securityScoreChart').getContext('2d');
+            new Chart(securityScoreCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Security Score',
+                        data: [85, 88, 92, 94],
+                        backgroundColor: '#10b981',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Geographic Chart
+            const geographicCtx = document.getElementById('geographicChart').getContext('2d');
+            new Chart(geographicCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['North America', 'Europe', 'Asia', 'South America', 'Africa', 'Oceania'],
+                    datasets: [{
+                        label: 'Threats by Region',
+                        data: [45, 32, 28, 15, 8, 5],
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Chart Controls
+        document.querySelector('.chart-select').addEventListener('change', function() {
+            const period = this.value;
+            showNotification(`Switched to ${period} view`, 'info');
+            // Here you would update the chart data based on the selected period
+        });
+
+        // Export Report
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            showNotification('Generating analytics report...', 'info');
+            setTimeout(() => {
+                showNotification('Report exported successfully!', 'success');
+            }, 2000);
+        });
+    </script>
+
+    <style>
+        /* Analytics Specific Styles */
+        .analytics-content {
+            padding: 32px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .metric-card:nth-child(1) .metric-icon { background: var(--success-color); }
+        .metric-card:nth-child(2) .metric-icon { background: var(--primary-color); }
+        .metric-card:nth-child(3) .metric-icon { background: var(--warning-color); }
+        .metric-card:nth-child(4) .metric-icon { background: var(--secondary-color); }
+
+        .metric-content h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 4px;
+        }
+
+        .metric-content p {
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .metric-change {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .metric-change.positive {
+            color: var(--success-color);
+        }
+
+        .metric-change.negative {
+            color: var(--danger-color);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .chart-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chart-select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .chart-content {
+            padding: 24px;
+            height: 300px;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .analytics-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .threat-list {
+            space-y: 16px;
+        }
+
+        .threat-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .threat-item:hover {
+            background: var(--light-color);
+            border-color: var(--primary-color);
+        }
+
+        .threat-rank {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .threat-info {
+            flex: 1;
+        }
+
+        .threat-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 4px;
+        }
+
+        .threat-info p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .threat-count {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .performance-metrics {
+            space-y: 20px;
+        }
+
+        .performance-item {
+            margin-bottom: 20px;
+        }
+
+        .performance-label {
+            font-size: 14px;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .performance-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .performance-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .performance-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .activity-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--light-color);
+            border-radius: 8px;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .activity-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .trend-list {
+            space-y: 16px;
+        }
+
+        .trend-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .trend-item.positive {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .trend-item.negative {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .trend-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .trend-item.positive .trend-icon {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .trend-item.negative .trend-icon {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .trend-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 4px;
+        }
+
+        .trend-value {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .date-range-picker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .date-range-picker input {
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .date-range-picker span {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .date-range-picker {
+                display: none;
+            }
+        }
+    </style>
+</body>
+</html>

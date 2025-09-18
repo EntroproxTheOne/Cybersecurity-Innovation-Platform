@@ -1,0 +1,24 @@
+{
+  "name": "think-ai-3-frontend-demo",
+  "version": "1.0.0",
+  "description": "Frontend demo for THINK AI 3.0 Cybersecurity Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "cybersecurity",
+    "frontend",
+    "demo",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "THINK AI 3.0 Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

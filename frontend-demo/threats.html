@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threats - THINK AI 3.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>THINK AI 3.0</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="threats.html" class="nav-link">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Threats</span>
+                        <span class="badge">12</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="bug-reports.html" class="nav-link">
+                        <i class="fas fa-bug"></i>
+                        <span>Bug Reports</span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Threat Management</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search threats...">
+                </div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Add Threat
+                </button>
+            </div>
+        </header>
+
+        <!-- Threats Content -->
+        <div class="threats-content">
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>Severity:</label>
+                    <select class="filter-select">
+                        <option value="">All</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select class="filter-select">
+                        <option value="">All</option>
+                        <option value="active">Active</option>
+                        <option value="investigating">Investigating</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Type:</label>
+                    <select class="filter-select">
+                        <option value="">All</option>
+                        <option value="malware">Malware</option>
+                        <option value="phishing">Phishing</option>
+                        <option value="ddos">DDoS</option>
+                        <option value="data_breach">Data Breach</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Date Range:</label>
+                    <input type="date" class="filter-input">
+                    <input type="date" class="filter-input">
+                </div>
+            </div>
+
+            <!-- Threats Table -->
+            <div class="threats-table-container">
+                <table class="threats-table">
+                    <thead>
+                        <tr>
+                            <th>Threat</th>
+                            <th>Severity</th>
+                            <th>Type</th>
+                            <th>Source</th>
+                            <th>Status</th>
+                            <th>Detected</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="threat-row">
+                            <td>
+                                <div class="threat-info">
+                                    <h4>Ransomware Attack</h4>
+                                    <p>Network Segment A - 192.168.1.100</p>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="severity-badge critical">Critical</span>
+                            </td>
+                            <td>Malware</td>
+                            <td>Internal Network</td>
+                            <td>
+                                <span class="status-badge active">Active</span>
+                            </td>
+                            <td>2 min ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Resolve">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="threat-row">
+                            <td>
+                                <div class="threat-info">
+                                    <h4>Phishing Campaign</h4>
+                                    <p>Email Gateway - suspicious@example.com</p>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="severity-badge high">High</span>
+                            </td>
+                            <td>Phishing</td>
+                            <td>Email Gateway</td>
+                            <td>
+                                <span class="status-badge investigating">Investigating</span>
+                            </td>
+                            <td>15 min ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Resolve">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="threat-row">
+                            <td>
+                                <div class="threat-info">
+                                    <h4>DDoS Attack</h4>
+                                    <p>Web Server - 203.0.113.1</p>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="severity-badge medium">Medium</span>
+                            </td>
+                            <td>DDoS</td>
+                            <td>External IP</td>
+                            <td>
+                                <span class="status-badge resolved">Resolved</span>
+                            </td>
+                            <td>1 hour ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Resolve">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="threat-row">
+                            <td>
+                                <div class="threat-info">
+                                    <h4>Data Exfiltration</h4>
+                                    <p>Database Server - 10.0.0.50</p>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="severity-badge critical">Critical</span>
+                            </td>
+                            <td>Data Breach</td>
+                            <td>Internal Network</td>
+                            <td>
+                                <span class="status-badge active">Active</span>
+                            </td>
+                            <td>2 hours ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Resolve">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="threat-row">
+                            <td>
+                                <div class="threat-info">
+                                    <h4>Insider Threat</h4>
+                                    <p>User Account - john.doe@company.com</p>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="severity-badge high">High</span>
+                            </td>
+                            <td>Insider Threat</td>
+                            <td>User Account</td>
+                            <td>
+                                <span class="status-badge investigating">Investigating</span>
+                            </td>
+                            <td>3 hours ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Resolve">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="btn btn-sm" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                    Previous
+                </button>
+                <div class="pagination-pages">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <span class="pagination-ellipsis">...</span>
+                    <button class="page-btn">10</button>
+                </div>
+                <button class="btn btn-sm">
+                    Next
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

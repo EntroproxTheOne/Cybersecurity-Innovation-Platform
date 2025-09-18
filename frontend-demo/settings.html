@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - THINK AI 3.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>THINK AI 3.0</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="threats.html" class="nav-link">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Threats</span>
+                        <span class="badge">12</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="bug-reports.html" class="nav-link">
+                        <i class="fas fa-bug"></i>
+                        <span>Bug Reports</span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Settings</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="btn btn-primary" onclick="saveAllSettings()">
+                    <i class="fas fa-save"></i>
+                    Save All Changes
+                </button>
+            </div>
+        </header>
+
+        <!-- Settings Content -->
+        <div class="settings-content">
+            <!-- Settings Navigation -->
+            <div class="settings-nav">
+                <button class="settings-nav-item active" onclick="showSettingsSection('general')">
+                    <i class="fas fa-cog"></i>
+                    General
+                </button>
+                <button class="settings-nav-item" onclick="showSettingsSection('security')">
+                    <i class="fas fa-shield-alt"></i>
+                    Security
+                </button>
+                <button class="settings-nav-item" onclick="showSettingsSection('notifications')">
+                    <i class="fas fa-bell"></i>
+                    Notifications
+                </button>
+                <button class="settings-nav-item" onclick="showSettingsSection('integrations')">
+                    <i class="fas fa-plug"></i>
+                    Integrations
+                </button>
+                <button class="settings-nav-item" onclick="showSettingsSection('appearance')">
+                    <i class="fas fa-palette"></i>
+                    Appearance
+                </button>
+                <button class="settings-nav-item" onclick="showSettingsSection('advanced')">
+                    <i class="fas fa-sliders-h"></i>
+                    Advanced
+                </button>
+            </div>
+
+            <!-- Settings Sections -->
+            <div class="settings-sections">
+                <!-- General Settings -->
+                <div id="general-settings" class="settings-section active">
+                    <div class="settings-header">
+                        <h2>General Settings</h2>
+                        <p>Configure basic application settings and preferences</p>
+                    </div>
+                    
+                    <div class="settings-cards">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Application Information</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="appName">Application Name</label>
+                                    <input type="text" id="appName" value="THINK AI 3.0" placeholder="Enter application name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="appVersion">Version</label>
+                                    <input type="text" id="appVersion" value="3.0.1" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appDescription">Description</label>
+                                    <textarea id="appDescription" rows="3" placeholder="Enter application description">Advanced AI-powered cybersecurity platform for threat detection and response</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>System Configuration</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="timezone">Timezone</label>
+                                    <select id="timezone">
+                                        <option value="UTC">UTC</option>
+                                        <option value="EST">Eastern Time</option>
+                                        <option value="PST">Pacific Time</option>
+                                        <option value="GMT">Greenwich Mean Time</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="language">Language</label>
+                                    <select id="language">
+                                        <option value="en">English</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="fr">French</option>
+                                        <option value="de">German</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dateFormat">Date Format</label>
+                                    <select id="dateFormat">
+                                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Data Management</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="dataRetention">Data Retention Period (days)</label>
+                                    <input type="number" id="dataRetention" value="365" min="30" max="1095">
+                                </div>
+                                <div class="form-group">
+                                    <label for="backupFrequency">Backup Frequency</label>
+                                    <select id="backupFrequency">
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="autoBackup" checked>
+                                        Enable Automatic Backups
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div id="security-settings" class="settings-section">
+                    <div class="settings-header">
+                        <h2>Security Settings</h2>
+                        <p>Configure security policies and authentication settings</p>
+                    </div>
+                    
+                    <div class="settings-cards">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Authentication</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="sessionTimeout">Session Timeout (minutes)</label>
+                                    <input type="number" id="sessionTimeout" value="30" min="5" max="480">
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxLoginAttempts">Max Login Attempts</label>
+                                    <input type="number" id="maxLoginAttempts" value="5" min="3" max="10">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="require2FA" checked>
+                                        Require Two-Factor Authentication
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="passwordComplexity" checked>
+                                        Enforce Strong Password Policy
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Access Control</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="ipWhitelist">IP Whitelist</label>
+                                    <textarea id="ipWhitelist" rows="4" placeholder="Enter IP addresses (one per line)">192.168.1.0/24
+10.0.0.0/8
+172.16.0.0/12</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="enableIPWhitelist">
+                                        Enable IP Whitelist
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="logAllAccess" checked>
+                                        Log All Access Attempts
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Encryption</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="encryptionLevel">Encryption Level</label>
+                                    <select id="encryptionLevel">
+                                        <option value="AES-256">AES-256</option>
+                                        <option value="AES-128">AES-128</option>
+                                        <option value="3DES">3DES</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="encryptAtRest" checked>
+                                        Encrypt Data at Rest
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="encryptInTransit" checked>
+                                        Encrypt Data in Transit
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Settings -->
+                <div id="notifications-settings" class="settings-section">
+                    <div class="settings-header">
+                        <h2>Notification Settings</h2>
+                        <p>Configure how and when you receive notifications</p>
+                    </div>
+                    
+                    <div class="settings-cards">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Email Notifications</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="emailThreats" checked>
+                                        Threat Detection Alerts
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="emailSystem" checked>
+                                        System Status Updates
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="emailSecurity">
+                                        Security Policy Changes
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="emailWeekly" checked>
+                                        Weekly Summary Reports
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Push Notifications</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="pushCritical" checked>
+                                        Critical Threats
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="pushSystem">
+                                        System Maintenance
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="pushUpdates">
+                                        Software Updates
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Notification Frequency</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="threatFrequency">Threat Alert Frequency</label>
+                                    <select id="threatFrequency">
+                                        <option value="immediate">Immediate</option>
+                                        <option value="5min">Every 5 minutes</option>
+                                        <option value="15min">Every 15 minutes</option>
+                                        <option value="hourly">Hourly</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="digestFrequency">Digest Frequency</label>
+                                    <select id="digestFrequency">
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integrations Settings -->
+                <div id="integrations-settings" class="settings-section">
+                    <div class="settings-header">
+                        <h2>Integrations</h2>
+                        <p>Connect with external services and APIs</p>
+                    </div>
+                    
+                    <div class="settings-cards">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>SIEM Integration</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="siemEnabled">
+                                        Enable SIEM Integration
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="siemEndpoint">SIEM Endpoint</label>
+                                    <input type="url" id="siemEndpoint" placeholder="https://siem.company.com/api">
+                                </div>
+                                <div class="form-group">
+                                    <label for="siemApiKey">API Key</label>
+                                    <input type="password" id="siemApiKey" placeholder="Enter API key">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Email Service</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="smtpHost">SMTP Host</label>
+                                    <input type="text" id="smtpHost" placeholder="smtp.company.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="smtpPort">SMTP Port</label>
+                                    <input type="number" id="smtpPort" value="587" placeholder="587">
+                                </div>
+                                <div class="form-group">
+                                    <label for="smtpUser">SMTP Username</label>
+                                    <input type="text" id="smtpUser" placeholder="noreply@company.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="smtpPass">SMTP Password</label>
+                                    <input type="password" id="smtpPass" placeholder="Enter password">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>API Configuration</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="apiEnabled" checked>
+                                        Enable REST API
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apiRateLimit">API Rate Limit (requests/minute)</label>
+                                    <input type="number" id="apiRateLimit" value="1000" min="100" max="10000">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="apiLogging" checked>
+                                        Enable API Logging
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appearance Settings -->
+                <div id="appearance-settings" class="settings-section">
+                    <div class="settings-header">
+                        <h2>Appearance</h2>
+                        <p>Customize the look and feel of the application</p>
+                    </div>
+                    
+                    <div class="settings-cards">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Theme</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="theme-options">
+                                    <div class="theme-option">
+                                        <input type="radio" id="themeLight" name="theme" value="light" checked>
+                                        <label for="themeLight">
+                                            <div class="theme-preview light">
+                                                <div class="preview-header"></div>
+                                                <div class="preview-content"></div>
+                                            </div>
+                                            <span>Light Theme</span>
+                                        </label>
+                                    </div>
+                                    <div class="theme-option">
+                                        <input type="radio" id="themeDark" name="theme" value="dark">
+                                        <label for="themeDark">
+                                            <div class="theme-preview dark">
+                                                <div class="preview-header"></div>
+                                                <div class="preview-content"></div>
+                                            </div>
+                                            <span>Dark Theme</span>
+                                        </label>
+                                    </div>
+                                    <div class="theme-option">
+                                        <input type="radio" id="themeAuto" name="theme" value="auto">
+                                        <label for="themeAuto">
+                                            <div class="theme-preview auto">
+                                                <div class="preview-header"></div>
+                                                <div class="preview-content"></div>
+                                            </div>
+                                            <span>Auto</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Layout</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="sidebarPosition">Sidebar Position</label>
+                                    <select id="sidebarPosition">
+                                        <option value="left">Left</option>
+                                        <option value="right">Right</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="compactMode">
+                                        Compact Mode
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="showAnimations" checked>
+                                        Show Animations
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Settings -->
+                <div id="advanced-settings" class="settings-section">
+                    <div class="settings-header">
+                        <h2>Advanced Settings</h2>
+                        <p>Configure advanced system settings and debugging options</p>
+                    </div>
+                    
+                    <div class="settings-cards">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Debugging</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="debugMode">
+                                        Enable Debug Mode
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="verboseLogging">
+                                        Verbose Logging
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logLevel">Log Level</label>
+                                    <select id="logLevel">
+                                        <option value="error">Error</option>
+                                        <option value="warn">Warning</option>
+                                        <option value="info" selected>Info</option>
+                                        <option value="debug">Debug</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h3>Performance</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="cacheSize">Cache Size (MB)</label>
+                                    <input type="number" id="cacheSize" value="512" min="64" max="2048">
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxConnections">Max Database Connections</label>
+                                    <input type="number" id="maxConnections" value="20" min="5" max="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="enableCompression" checked>
+                                        Enable Response Compression
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card danger-zone">
+                            <div class="card-header">
+                                <h3>Danger Zone</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="danger-actions">
+                                    <div class="danger-action">
+                                        <div class="danger-info">
+                                            <h4>Reset All Settings</h4>
+                                            <p>Reset all settings to their default values</p>
+                                        </div>
+                                        <button class="btn btn-danger" onclick="resetSettings()">
+                                            Reset Settings
+                                        </button>
+                                    </div>
+                                    <div class="danger-action">
+                                        <div class="danger-info">
+                                            <h4>Clear All Data</h4>
+                                            <p>Permanently delete all application data</p>
+                                        </div>
+                                        <button class="btn btn-danger" onclick="clearAllData()">
+                                            Clear Data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Settings Navigation
+        function showSettingsSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.settings-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.settings-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(section + '-settings').classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.classList.add('active');
+        }
+
+        // Save All Settings
+        function saveAllSettings() {
+            showNotification('All settings saved successfully!', 'success');
+        }
+
+        // Reset Settings
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to default values? This action cannot be undone.')) {
+                showNotification('Settings reset to default values', 'success');
+            }
+        }
+
+        // Clear All Data
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone and will permanently delete all application data.')) {
+                showNotification('All data cleared successfully', 'success');
+            }
+        }
+
+        // Theme Preview
+        document.querySelectorAll('input[name="theme"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const theme = this.value;
+                showNotification(`Theme changed to ${theme}`, 'info');
+            });
+        });
+
+        // Settings Form Validation
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('change', function() {
+                // Add visual feedback for changed settings
+                this.style.borderColor = '#10b981';
+                setTimeout(() => {
+                    this.style.borderColor = '';
+                }, 2000);
+            });
+        });
+    </script>
+
+    <style>
+        /* Settings Specific Styles */
+        .settings-content {
+            display: flex;
+            gap: 24px;
+            padding: 32px;
+        }
+
+        .settings-nav {
+            width: 250px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            height: fit-content;
+        }
+
+        .settings-nav-item {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .settings-nav-item:hover {
+            background: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        .settings-nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .settings-sections {
+            flex: 1;
+        }
+
+        .settings-section {
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .settings-header {
+            margin-bottom: 32px;
+        }
+
+        .settings-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .settings-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .settings-cards {
+            display: grid;
+            gap: 24px;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .settings-card.danger-zone {
+            border-color: var(--danger-color);
+        }
+
+        .card-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--light-color);
+        }
+
+        .card-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .form-group label:has(input[type="checkbox"]) {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .theme-option {
+            position: relative;
+        }
+
+        .theme-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-option input[type="radio"]:checked + label {
+            border-color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .theme-preview {
+            width: 60px;
+            height: 40px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-preview.light {
+            background: #ffffff;
+        }
+
+        .theme-preview.dark {
+            background: #1f2937;
+        }
+
+        .theme-preview.auto {
+            background: linear-gradient(45deg, #ffffff 50%, #1f2937 50%);
+        }
+
+        .preview-header {
+            height: 12px;
+            background: var(--primary-color);
+        }
+
+        .preview-content {
+            height: 28px;
+            background: var(--light-color);
+        }
+
+        .danger-actions {
+            space-y: 20px;
+        }
+
+        .danger-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid var(--danger-color);
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .danger-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--danger-color);
+            margin-bottom: 4px;
+        }
+
+        .danger-info p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+            border: 1px solid var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            border-color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .settings-content {
+                flex-direction: column;
+                padding: 16px;
+            }
+            
+            .settings-nav {
+                width: 100%;
+            }
+            
+            .theme-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .danger-action {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>
